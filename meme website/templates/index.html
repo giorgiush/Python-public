@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Random Meme Generator</title>
+  <link rel="stylesheet" type="text/css" href="../static/style.css">
+</head>
+<body>
+  <div class="container">
+    <h1>Random Meme Generator</h1>
+    <div class="meme-container">
+      <img id="meme" src={{meme}} alt="Random Meme">
+    </div>
+      <form action="/generate" method="POST">
+         <button id="generate-btn" type="submit">Generate New Meme</button>
+      </form>
+  </div>
+</body>
+</html>
