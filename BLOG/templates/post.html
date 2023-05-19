@@ -1,0 +1,64 @@
+{% include 'header.html' %}
+{% import "bootstrap/wtf.html" as wtf%}
+        <!-- Page Header-->
+        <header class="masthead" style="background-image: url({{blog_post['img_url']}})">
+            <div class="container position-relative px-4 px-lg-5">
+                <div class="row gx-4 gx-lg-5 justify-content-center">
+                    <div class="col-md-10 col-lg-8 col-xl-7">
+                        <div class="post-heading">
+                            <h1>{{ blog_post['title'] }}</h1>
+                            <h2 class="subheading">{{ blog_post['subtitle'] }}</h2>
+                            <span class="meta">
+                                Posted by
+                                <a href="#!">{{ blog_post['author'] }}</a>
+                                on {{ blog_post['date'] }}
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+        <!-- Post Content-->
+<article class="mb-4">
+    <div class="container px-4 px-lg-5">
+        <div class="row gx-4 gx-lg-5 justify-content-center">
+            <div class="col-md-10 col-lg-8 col-xl-7">
+                                                           {{ blog_post['body']|safe }}
+
+{% if current_user.is_authenticated %}
+        {% if current_user.id == 1 %}
+        <div class="d-flex justify-content-end mb-4"><a class="btn btn-primary text-uppercase" href="{{url_for('edit', id=blog_post['id'])}}">Edit Post →</a></div>
+        {% endif %}
+        <hr>
+
+            </div>
+        </div>
+    </div>
+</article>
+
+<div class="col-lg-8 col-md-10 mx-auto comment">
+    <h3>Comments</h3>
+    <div class="d-flex flex-column">
+        {% for comment in comments %}
+        <div class="d-flex align-items-start mb-3">
+            <div class="flex-shrink-0 me-3">
+                {% for author in comment_authors %}
+                {% if author.id == comment.author_id %}
+                <img src="{{ author.email|gravatar }}" width="48" height="48" class="rounded-circle">
+            </div>
+            <div>
+                <div class="fw-bold">{{ author.name }}</div>
+                <div class="comment-text">{{ comment.text|safe }}</div>
+            </div>
+        </div>
+                {% endif %}
+                {% endfor %}
+        {% endfor %}
+    </div>
+    {{ wtf.quick_form(form, novalidate=True, button_map={"submit": "primary"}) }}
+    {{ ckeditor.load() }}
+</div>
+
+{% endif %}
+
+{% include 'footer.html' %}
