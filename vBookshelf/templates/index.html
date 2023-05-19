@@ -1,0 +1,26 @@
+{% extends 'bootstrap/base.html' %}
+
+{%block title%} vBookshelf {% endblock %}
+
+{%block content%}
+<div class="container">
+        <h1> My Library </h1>
+
+        {% if not all_books %}
+        <p> Library is empty. </p>
+        {% endif %}
+
+        <ul>
+            {% for book in all_books %}
+            <li><a href="{{url_for('delete', title=book['title'])}}">Delete</a> <b>{{book['title']}} - {{book['author']}} - {{book['rating']}}</b><a href="{{url_for('edit', title=book['title'])}}"> Edit Rating </a></li>
+            {% endfor %}
+        </ul>
+
+        <a href="{{url_for('add')}}"> Add New Book </a>
+</div>
+{%endblock%}
+
+{% block styles %}
+        {{ super() }}
+        <link rel="stylesheet" href="{{url_for('static', filename='css/styles.css')}}">
+{% endblock %}

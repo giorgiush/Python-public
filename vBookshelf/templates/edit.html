@@ -1,0 +1,18 @@
+{% extends 'bootstrap/base.html' %}
+{% import "bootstrap/wtf.html" as wtf%}
+
+
+{%block title%} vBookshelf {% endblock %}
+
+{%block content%}
+<div class="container">
+<h3>Book Name: {{title}}</h3>
+{{ wtf.quick_form(form, novalidate=True) }}
+
+</div>
+{%endblock%}
+
+{% block styles %}
+{{ super() }}
+<link rel="stylesheet" href="{{url_for('static', filename='css/styles.css')}}">
+{% endblock %}
